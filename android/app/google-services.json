@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "642455877756",
+    "firebase_url": "https://certitudetest.firebaseio.com",
+    "project_id": "certitudetest",
+    "storage_bucket": "certitudetest.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:642455877756:android:9ac6f0390337ffc31db1f9",
+        "android_client_info": {
+          "package_name": "com.shankar_narayana"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "642455877756-enbe88et4js1qc5gdfqb92v2c0u592bp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shankar_narayana",
+            "certificate_hash": "a025586e007cf644b5bfd500935a5bb3849474a4"
+          }
+        },
+        {
+          "client_id": "642455877756-kqvlb2onmprtjvejv8kh3ssukr4ol5af.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcLP9i8Kz4JAT68OH5dX6sDz6lv5fXM6Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "642455877756-kqvlb2onmprtjvejv8kh3ssukr4ol5af.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
