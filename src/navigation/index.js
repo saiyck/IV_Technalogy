@@ -7,6 +7,7 @@ import {createMaterialBottomTabNavigator} from '@react-navigation/material-botto
 import {createSharedElementStackNavigator} from 'react-navigation-shared-element';
 import GeoLocation from '@react-native-community/geolocation';
 import io from 'socket.io-client';
+import {Icon} from 'react-native-vector-icons/MaterialIcons';
 
 import {Context} from 'store';
 import Login from 'screens/Login';
@@ -69,12 +70,8 @@ const NewsApp = (props) => {
           headerStyle: {backgroundColor: RED},
           headerTitleStyle: {color: Colors.white},
           headerTintColor: Colors.white,
-          headerRight:()=><View style={{flexDirection:'row'}}><Image
-          source={require('./shankar.png')}
-          style={{width:45,height:45,marginTop:4}}/>
-          <Image
-          source={require('./jagan.png')}
-          style={{width:55,height:55}}/>
+          headerRight:()=><View style={{flexDirection:'row'}}>
+          
           </View>
         }  
       }>
@@ -99,13 +96,6 @@ const MeetingApp = (props) => {
           headerStyle: {backgroundColor: ORANGE},
           headerTitleStyle: {color: Colors.white},
           headerTintColor: Colors.white,
-          headerRight:()=><View style={{flexDirection:'row'}}><Image
-          source={require('./shankar.png')}
-          style={{width:45,height:45,marginTop:4}}/>
-          <Image
-          source={require('./jagan.png')}
-          style={{width:55,height:55}}/>
-          </View>
         }}>
         <MeetingStack.Screen name={routes.meeting} component={Meeting} />
         <MeetingStack.Screen
@@ -139,13 +129,6 @@ const ComplaintApp = (props) => {
           headerStyle: {backgroundColor: GREEN},
           headerTitleStyle: {color: Colors.white},
           headerTintColor: Colors.white,
-          headerRight:()=><View style={{flexDirection:'row'}}><Image
-          source={require('./shankar.png')}
-          style={{width:45,height:45,marginTop:4}}/>
-          <Image
-          source={require('./jagan.png')}
-          style={{width:55,height:55}}/>
-          </View>
         }}>
         <ComplaintStack.Screen name={routes.complaint} component={Complaint} />
         <ComplaintStack.Screen
@@ -198,13 +181,7 @@ const ProfileApp = (props) => {
         headerStyle: {backgroundColor: BLUE},
         headerTitleStyle: {color: Colors.white},
         headerTintColor: Colors.white,
-        headerRight:()=><View style={{flexDirection:'row'}}><Image
-        source={require('./shankar.png')}
-        style={{width:45,height:45,marginTop:4}}/>
-        <Image
-        source={require('./jagan.png')}
-        style={{width:55,height:55}}/>
-        </View>
+       
       }}>
       <ProfileStack.Screen
         name={routes.single_complaint}
@@ -352,6 +329,8 @@ const RootApp = ({nav_ref}) => {
       <TabNavigator.Navigator
         headerMode="none"
         barStyle={{backgroundColor: color}}
+        activeColor={WHITE}
+        inactiveColor={WHITE}
         initialRouteName={state.user.token ? routes.news : routes.login}>
         <TabNavigator.Screen
           listeners={{tabPress: () => setActiveColor(RED)}}

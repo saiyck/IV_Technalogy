@@ -6,23 +6,23 @@
 // export const socket_endpoint = 'http://192.168.29.17:8080';
 
 // PROD CONFIG
-export const base_url = 'http://34.66.3.65:8081';
-export const linking_url = 'http://34.66.3.65:8081';
-export const socket_endpoint = 'http://34.66.3.65:8081';
+export const base_url = 'http://35.224.203.77:8080';
+export const linking_url = 'http://35.224.203.77:8080';
+export const socket_endpoint = 'http://35.224.203.77:8080';
 
 // THEME
 export const primary_color = '';
 export const secondary_color = '';
 
 // FIREBASE CONFIG
-export const web_client_id ='642455877756-kqvlb2onmprtjvejv8kh3ssukr4ol5af.apps.googleusercontent.com';
+export const web_client_id ='512048225846-urp728dc1mq5rah2nef09jcc8b87dmk3.apps.googleusercontent.com';
 
 // COLORS CONFIG
 export const RED = '#db3236';
 export const GREEN = '#008E46';
 export const YELLOW = '#f4c20d';
 export const BLUE = '#0266B4';
-export const BLACK = '#0000';
+export const BLACK = '#000000';
 export const WHITE = '#ffffff';
 export const ORANGE = '#FD7F18';
 

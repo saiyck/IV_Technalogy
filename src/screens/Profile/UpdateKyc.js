@@ -27,19 +27,24 @@ import moment from 'moment';
 import { BLUE } from 'globals/constants';
 //import ImagePicker from 'react-native-image-crop-picker';
 //import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-const UpdateKyc = () => {
-  const {state, handlers} = React.useContext(Context);
-  const [fields, setFields] = React.useState({
-    name: state.user.name,
-    email: state.user.email,
-    number: state.user.mobile,
-    dob: state.user.dob ? state.user.dob : new Date(),
-    aadhar:state.user.aadhar,
-    profile:'https://www.oneeducation.org.uk/wp-content/uploads/2020/06/cool-profile-icons-69.png',
-    adharfront:'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT5ZkZZAsuWb5mOi6vakK28Lx2qJhPE3y-YSg&usqp=CAU',
-    adharback: 'https://cdn.iconscout.com/icon/free/png-64/aadhaar-2085055-1747945.png',
-  });
+const re = {
+  email: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+  mobile: /[0-9]{10}/,
+};
+const UpdateKyc = (props) => {
   const [show, setShow] = React.useState(false);
+  const [fields, setFields] = React.useState({
+    name: props.user.name,
+    email: props.user.email,
+    mobile: props.user.mobile,
+    dob: props.user.dob ? props.user.dob : new Date(),
+    aadhar:props.user.aadhar,
+    photo:props.user.photo ? props.user.photo :'https://www.oneeducation.org.uk/wp-content/uploads/2020/06/cool-profile-icons-69.png',
+    adharfront:props.user.adharfront ? props.user.adharfront:'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT5ZkZZAsuWb5mOi6vakK28Lx2qJhPE3y-YSg&usqp=CAU',
+    adharback:props.user.adharback ? props.user.adharback : 'https://cdn.iconscout.com/icon/free/png-64/aadhaar-2085055-1747945.png',
+    address:props.user.address,
+  });
+  
   
   function updateField(k, v) {
     setShow(false);
@@ -59,6 +64,36 @@ const UpdateKyc = () => {
     }).then((images) => {
       updateField(k, images.path);
     });
+  }
+  function handleSubmit() {
+    let ok = true;
+    Object.keys(fields).forEach((k) => {
+      if (ok) {
+        if (!fields[k] || fields[k] === '') {
+          ok = false;
+        }
+
+        if (ok) {
+          switch (k) {
+            case 'email':
+              ok = re.email.test(fields[k].toLowerCase());
+              break;
+            case 'mobile':
+              ok = re.mobile.test(fields[k].toLowerCase());
+              break;
+          }
+        }
+      }
+    });
+
+    if (!ok) {
+      alert('SOME FIELDS ARE NOT VALID!');
+    } else {
+      if (fields.dob) {
+        fields.dob = new Date(fields.dob);
+      }
+      props.onFinish(fields);
+    }
   }
 
     return (
@@ -90,7 +125,7 @@ const UpdateKyc = () => {
               }}>
               {
                 <Image
-                  source={{uri:fields.profile}}
+                  source={{uri:fields.photo}}
                   style={{height: 105, width: 108, borderRadius: 100}}
                 />
               }
@@ -110,6 +145,7 @@ const UpdateKyc = () => {
               placeholder="Full name"
               keyboardType="default"
               underlineColorAndroid="transparent"
+              value={fields.name}
               onChangeText={(v) => updateField('name',v)}
             />
           </View>
@@ -126,6 +162,7 @@ const UpdateKyc = () => {
               style={styles.inputs}
               placeholder="Email"
               keyboardType="email-address"
+              value={fields.email}
               underlineColorAndroid="transparent"
               onChangeText={(v) => updateField('email',v)}
             />
@@ -144,8 +181,9 @@ const UpdateKyc = () => {
               placeholder="Mobile number"
               keyboardType="number-pad"
               maxLength={10}
+              value={fields.mobile}
               underlineColorAndroid="transparent"
-              onChangeText={(v) => updateField('number',v)}
+              onChangeText={(v) => updateField('mobile',v)}
             />
           </View> 
           <TouchableNativeFeedback  onPress={() => setShow(true)}>
@@ -183,8 +221,9 @@ const UpdateKyc = () => {
               keyboardType="numeric"
               maxLength={12}
               // secureTextEntry={true}
+              value={fields.aadhar}
               underlineColorAndroid="transparent"
-              onChangeText={(aadharid) => this.setState({aadharid})}
+              onChangeText={(v) => updateField('aadhar',v)}
             />
           </View>
           <View style={{top: 25}}>
@@ -219,21 +258,20 @@ const UpdateKyc = () => {
               }}
             />
             <TextInput
-              style={styles.inputs}
               placeholder="Address"
               // secureTextEntry={true}
               underlineColorAndroid="white"
-              numberOfLines={4}
-              onChangeText={(address) => this.setState({address})}
+              value={fields.address}
+              multiline={true}
+              numberOfLines={3}
+              onChangeText={(v) => updateField('address',v)}
             />
           </View>
 
           <TouchableHighlight
             style={[styles.buttonContainer, styles.submitButton]}
-            onPress={() =>
-              this.onClickListener('please wait for further process')
-            }>
-            <Text style={styles.submit}>submit</Text>
+            onPress={handleSubmit}>
+            <Text style={styles.submit}>update</Text>
           </TouchableHighlight>
         </View>
       </ScrollView>

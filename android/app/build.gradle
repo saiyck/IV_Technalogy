@@ -85,8 +85,8 @@ project.ext.vectoricons = [
     iconFontNames: ['FontAwesome.ttf', 'MaterialCommunityIcons.ttf', 'MaterialIcons.ttf']
 ]
 
-apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
-apply from: "../../node_modules/react-native/react.gradle"
+
+
 
 /**
  * Set this to true to create two separate APKs instead of one:
@@ -210,7 +210,8 @@ dependencies {
     implementation 'com.survicate:survicate-sdk:1.+'
     implementation 'com.google.firebase:firebase-auth'
     // For animated GIF support
-    compile 'com.facebook.fresco:fresco:1.+'
+    implementation 'com.facebook.fresco:fresco:1.+'
+    implementation project(':react-native-vector-icons')
     implementation 'com.facebook.fresco:animated-gif:2.0.0'
     implementation 'com.google.firebase:firebase-messaging:15.0.2'
     implementation(project(":react-native-community_google-signin"))
@@ -246,4 +247,6 @@ task copyDownloadableDepsToLibs(type: Copy) {
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+apply from: "../../node_modules/react-native/react.gradle"
 apply plugin: 'com.google.gms.google-services'

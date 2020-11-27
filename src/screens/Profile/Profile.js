@@ -8,6 +8,7 @@ import routes from 'navigation/routes';
 
 import styles from './profile-style';
 import UpdateForm from './UpdateForm';
+import UpdateKyc from './UpdateKyc';
 
 function Profile(props) {
   const {state, handlers} = React.useContext(Context);
@@ -73,10 +74,10 @@ function Profile(props) {
     <ScrollView style={styles.container}>
       <Portal>
         <Dialog visible={dialog} onDismiss={() => setDialog(false)}>
-          <UpdateForm
-            user={state.user.data}
-            onDismiss={() => setDialog(false)}
-            onFinish={updateProfile}
+          <UpdateKyc
+          user={state.user.data}
+          onDismiss={() => setDialog(false)}
+          onFinish={updateProfile}
           />
         </Dialog>
       </Portal>
@@ -93,6 +94,7 @@ function Profile(props) {
           </View> */}
           <View style={styles.details}>
           <Image
+            style={styles.image}
             source={{uri:state.user.data.photo}}
             />
             <Text style={styles.name}>{state.user.data.name}</Text>
@@ -121,18 +123,6 @@ function Profile(props) {
         <View style={styles.menu}>
           <Text style={styles.menu_container}>MENU OPTIONS</Text>
           <View style={styles.menu_list}>
-            {state.user.data.type =='casual'&&(
-                 <List.Item
-                 title="Update Kyc"
-                 onPress={() => showScreen('updateKyc')}
-                 right={(icon_props) => (
-                   <List.Icon {...icon_props} icon="arrow-right"/>
-                 )}
-                 left={(icon_props) => (
-                   <List.Icon {...icon_props} color={RED} icon="fingerprint"/>
-                 )}
-                 />
-            )}
             {state.user.data.type !== 'requestor' &&
               state.user.data.type !== 'casual' && (
                 <List.Item
