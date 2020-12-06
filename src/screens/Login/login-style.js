@@ -1,3 +1,4 @@
+import { BLACK, BLUE, GREEN, ORANGE, RED, WHITE } from 'globals/constants';
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
@@ -16,15 +17,24 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 50,
+    marginTop:-30
+
   },
   title: {
-    fontSize: 30,
-  },
-  sub_title: {
     fontSize: 15,
+    color:GREEN,
+    marginTop:-10
+  },
+  disc: {
+    fontSize:13,
+    color:GREEN,
+    marginTop:5
+   },
+  sub_title: {
+    fontSize: 10,
     marginTop: 10,
-    marginBottom: 30,
+    color:BLUE
   },
   image: {
     flex: 1,
@@ -38,7 +48,7 @@ const styles = StyleSheet.create({
   },
   login_card: {
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'row',
     justifyContent: 'space-evenly',
     alignContent: 'center',
     alignItems: 'center',
@@ -46,15 +56,33 @@ const styles = StyleSheet.create({
   button: {
     width: '40%',
     marginBottom: 20,
+    borderRadius:10
   },
-  otp_container: {
-    marginTop: 20,
+  phone: {
+    marginLeft:60,
+    marginRight:60,
+    backgroundColor:'#33b53e',
+    borderRadius:10
   },
   otp_card: {
-    marginHorizontal: 20,
-    backgroundColor: 'white',
-    paddingVertical: 30,
   },
+  textPhone:{
+    height:50,
+    width:300,
+    marginLeft:10,
+    backgroundColor:WHITE,
+    borderColor:GREEN,
+    borderBottomColor:GREEN
+  },
+  loginPhone:{
+    marginLeft:20,
+    backgroundColor:WHITE
+  },
+  phoneCard:{
+    backgroundColor:GREEN ,
+    borderRadius:20,
+    marginHorizontal:20
+  }
 });
 
 export default styles;

@@ -12,8 +12,8 @@
       android:name=".MainApplication"
       android:usesCleartextTraffic="true"
       android:label="@string/app_name"
-      android:icon="@mipmap/ic_launcher"
-      android:roundIcon="@mipmap/ic_launcher_round"
+      android:icon="@mipmap/ic_launchers"
+      android:roundIcon="@mipmap/ic_launchers_round"
       android:allowBackup="false"
       android:theme="@style/AppTheme">
       <meta-data android:name="com.survicate.surveys.workspaceKey" android:value="8e1312d95965d74c2a3bc1410a8a02b2"/>

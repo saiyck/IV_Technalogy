@@ -12,6 +12,8 @@ import {Icon} from 'react-native-vector-icons/MaterialIcons';
 import {Context} from 'store';
 import Login from 'screens/Login';
 import Profile, {Requests, Location,UpdateKyc} from 'screens/Profile';
+import UserProfile from 'screens/Profile/Requests/UserProfile';
+import {UserRequests,Users} from 'screens/Profile/Requests';
 import Meeting, {
   MeetingForm,
   SingleMeeting,
@@ -31,6 +33,7 @@ const TabNavigator = createMaterialBottomTabNavigator();
 const ProfileStack = createStackNavigator();
 const ComplaintStack = createStackNavigator();
 const MeetingStack = createStackNavigator();
+const RequestStack=createStackNavigator();
 const NewsStack = createSharedElementStackNavigator();
 
 const options = {
@@ -49,7 +52,7 @@ const options = {
     },
     [routes.complaint]: {
       tabBarLabel: 'Complaint',
-      tabBarIcon: 'check',
+      tabBarIcon: 'file-document-edit-outline',
     },
   },
 };
@@ -67,7 +70,7 @@ const NewsApp = (props) => {
         initialRouteName={routes.news}
         screenOptions={{
           headerTitle: 'NEWS',
-          headerStyle: {backgroundColor: RED},
+          headerStyle: {backgroundColor: GREEN},
           headerTitleStyle: {color: Colors.white},
           headerTintColor: Colors.white,
           headerRight:()=><View style={{flexDirection:'row'}}>
@@ -93,9 +96,16 @@ const MeetingApp = (props) => {
         initialRouteName={routes.meeting}
         screenOptions={{
           headerTitle: 'MEETING',
-          headerStyle: {backgroundColor: ORANGE},
+          headerStyle: {backgroundColor: GREEN},
           headerTitleStyle: {color: Colors.white},
           headerTintColor: Colors.white,
+          headerRight:()=><View style={{flexDirection:'row'}}><Image
+          source={require('./shankar.png')}
+          style={{width:45,height:45,marginTop:4}}/>
+         <Image
+          source={require('./jagan.png')}
+         style={{width:55,height:55}}/>
+         </View>
         }}>
         <MeetingStack.Screen name={routes.meeting} component={Meeting} />
         <MeetingStack.Screen
@@ -129,6 +139,13 @@ const ComplaintApp = (props) => {
           headerStyle: {backgroundColor: GREEN},
           headerTitleStyle: {color: Colors.white},
           headerTintColor: Colors.white,
+          headerRight:()=><View style={{flexDirection:'row'}}><Image
+          source={require('./shankar.png')}
+          style={{width:45,height:45,marginTop:4}}/>
+         <Image
+          source={require('./jagan.png')}
+         style={{width:55,height:55}}/>
+         </View>
         }}>
         <ComplaintStack.Screen name={routes.complaint} component={Complaint} />
         <ComplaintStack.Screen
@@ -178,7 +195,7 @@ const ProfileApp = (props) => {
       initialRouteName={state.user.token ? routes.profile : routes.login}
       screenOptions={{
         
-        headerStyle: {backgroundColor: BLUE},
+        headerStyle: {backgroundColor: GREEN},
         headerTitleStyle: {color: Colors.white},
         headerTintColor: Colors.white,
        
@@ -205,6 +222,15 @@ const ProfileApp = (props) => {
       <ProfileStack.Screen
        name={routes.user_news} component={UserNews} 
        />
+       <ProfileStack.Screen
+       name={routes.user_profile} component={UserProfile}
+       />
+       <ProfileStack.Screen
+       name={routes.user_requests} component={UserRequests}
+       />
+       <ProfileStack.Screen
+       name={routes.users} component={Users}
+       />
       <ProfileStack.Screen name={routes.requests} component={Requests} />
       <ProfileStack.Screen name={routes.create_news} component={NewsForm} />
       <ProfileStack.Screen name={routes.location} component={Location} />
@@ -215,7 +241,7 @@ const ProfileApp = (props) => {
 const RootApp = ({nav_ref}) => {
   const {tab_navigator} = options;
   const {handlers, state} = React.useContext(Context);
-  const [color, setActiveColor] = React.useState(state.user.token ? RED : BLUE);
+  const [color, setActiveColor] = React.useState(state.user.token ? GREEN : GREEN);
   const socket = React.useRef();
   const interval = React.useRef();
 
@@ -315,7 +341,7 @@ const RootApp = ({nav_ref}) => {
 
   React.useEffect(() => {
     if (state.user.token) {
-      setActiveColor(RED);
+      setActiveColor(GREEN);
       nav_ref.current?.reset({
         index: 0,
         routes: [{name: routes.news}],
@@ -333,13 +359,13 @@ const RootApp = ({nav_ref}) => {
         inactiveColor={WHITE}
         initialRouteName={state.user.token ? routes.news : routes.login}>
         <TabNavigator.Screen
-          listeners={{tabPress: () => setActiveColor(RED)}}
+          listeners={{tabPress: () => setActiveColor(GREEN)}}
           options={tab_navigator[routes.news]}
           name={routes.news}
           component={NewsApp}
         />
         <TabNavigator.Screen
-          listeners={{tabPress: () => setActiveColor(ORANGE)}}
+          listeners={{tabPress: () => setActiveColor(GREEN)}}
           options={tab_navigator[routes.meeting]}
           name={routes.meeting}
           component={MeetingApp}
@@ -351,7 +377,7 @@ const RootApp = ({nav_ref}) => {
           component={ComplaintApp}
         />
         <TabNavigator.Screen
-          listeners={{tabPress: () => setActiveColor(BLUE)}}
+          listeners={{tabPress: () => setActiveColor(GREEN)}}
           options={tab_navigator[routes.login]}
           name={routes.login}
           component={ProfileApp}

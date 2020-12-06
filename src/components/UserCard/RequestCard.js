@@ -1,5 +1,5 @@
 import React from 'react';
-import {Picker} from 'react-native';
+import {Picker,TouchableOpacity} from 'react-native';
 import {Card, Button, Text, Paragraph} from 'react-native-paper';
 
 import styles from './usercard-styles';
@@ -11,6 +11,7 @@ export function RequestCard(props) {
   const is_same = state.user.data.id === props.id;
 
   return (
+    <TouchableOpacity onPress={() => props.onOpen(props.index)}>
     <Card style={styles.container}>
       <Card.Title
         title={props.name}
@@ -34,5 +35,6 @@ export function RequestCard(props) {
         )}
       </Card.Actions>
     </Card>
+    </TouchableOpacity>
   );
 }

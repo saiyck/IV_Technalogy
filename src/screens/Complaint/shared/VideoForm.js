@@ -19,6 +19,8 @@ import {
   MAX_TITLE_LENGTH,
   MIN_DESC_LENGTH,
   MAX_DESC_LENGTH,
+  GREEN,
+  WHITE,
 } from 'globals/constants';
 import {HEIGHT} from 'constants';
 
@@ -131,22 +133,30 @@ export default function VideoForm(props) {
         <Card style={styles.title_card}>
           <Card.Title
             title="RECORD VIDEO HERE"
+            titleStyle={{color:GREEN}}
             subtitle="start recording and stop"
+            subtitleStyle={{color:GREEN}}
           />
           <Card.Content>
             <Button
               color={RED}
               onPress={() => setDialog(true)}
-              icon={fields.video ? 'play' : 'record'}
-              styles={styles.record_btn}>
+              icon={fields.video ? 'play' : 'record-circle'}>
               {fields.video ? 'PREVIEW' : 'RECORD'}
             </Button>
           </Card.Content>
           <Card.Content style={styles.field_container}>
             <TextInput
+              style={{color:GREEN}}
               onChangeText={(v) => updateField('title', v)}
               label="TITLE"
               placeholder="YOUR COMPLAINT REGARDING"
+              theme={{
+                colors:{
+                  primary:GREEN,
+                  placeholder:GREEN
+                }
+              }}
             />
             <HelperText>
               {fields.title.length} / {MAX_TITLE_LENGTH}
@@ -154,11 +164,18 @@ export default function VideoForm(props) {
           </Card.Content>
           <Card.Content style={styles.field_container}>
             <TextInput
+              style={{color:GREEN}}
               label="DESCRIPTION"
               onChangeText={(v) => updateField('description', v)}
               multiline
               numberOfLines={4}
               placeholder="SOME MORE INPUTS ON YOUR COMPLAINT"
+              theme={{
+                colors:{
+                  primary:GREEN,
+                  placeholder:GREEN
+                }
+              }}
             />
             <HelperText>
               {fields.description.length} / {MAX_DESC_LENGTH}
@@ -176,16 +193,26 @@ export default function VideoForm(props) {
             ))}
           </Card.Content>
           <Card.Content style={styles.field_container}>
-            <Button
-              onPress={handleImageSelect}
-              disabled={fields.images.length === 4}>
-              ADD IMAGES
-            </Button>
+          <View style={styles.imageUploader}>
+              <Image source={require('./assets/imageUploader.png')}
+              style={{width:40,height:40,marginLeft:60}}/>
+              <Button
+                color={GREEN}
+                onPress={handleImageSelect}
+                disabled={fields.images.length === 4}>
+                ADD IMAGES
+              </Button>
+              </View>
           </Card.Content>
           <Card.Actions>
-            <Button onPress={submitComplaint} disabled={loading} icon="check">
-              SUBMIT
-            </Button>
+          <Button
+                style={styles.send}
+                onPress={submitComplaint}
+                color={WHITE}
+                disabled={loading}
+                icon="check">
+                SUBMIT
+              </Button> 
           </Card.Actions>
         </Card>
       </View>

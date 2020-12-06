@@ -52,7 +52,6 @@ export const updateUser = (state, setState) => async (id, patch, cb) => {
       cb();
     }
     if (!patch.notification_id) {
-      alert('USER UPDATED!');
     }
   }
 };

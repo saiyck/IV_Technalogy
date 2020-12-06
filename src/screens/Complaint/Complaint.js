@@ -8,7 +8,7 @@ import routes from 'navigation/routes';
 
 import styles from './complaint-style';
 import Loading from 'components/Loading';
-import { BLUE, GREEN, YELLOW } from 'globals/constants';
+import { BLACK, BLUE, GREEN, YELLOW } from 'globals/constants';
 
 export default function Complaint(props) {
   const {state, handlers} = React.useContext(Context);
@@ -44,9 +44,9 @@ export default function Complaint(props) {
       <View style={{flex: 1, display: 'flex', justifyContent: 'center'}}>
         <Card style={styles.login_container}>
           <Card.Content>
-            <Text style={{textAlign: 'center'}}>YOU NEED TO BE LOGGED IN</Text>
+            <Text style={{textAlign: 'center',color:BLACK}}>YOU NEED TO BE LOGGED IN</Text>
           </Card.Content>
-          <Button onPress={() => props.navigation.navigate(routes.login)}>
+          <Button color={GREEN} onPress={() => props.navigation.navigate(routes.login)}>
             LOGIN
           </Button>
         </Card>

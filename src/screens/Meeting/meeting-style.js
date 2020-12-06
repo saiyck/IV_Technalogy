@@ -1,11 +1,26 @@
 import {StyleSheet} from 'react-native';
-import {BLUE, ORANGE, WHITE} from 'globals/constants';
+import {BLUE, GREEN, ORANGE, WHITE} from 'globals/constants';
 
 const styles = StyleSheet.create({
   container: {
     marginVertical: 10,
     marginHorizontal: 15,
   },
+  actionButtonIcon: {
+    fontSize: 20,
+    height: 22,
+    backgroundColor:GREEN,
+    color: 'white',
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    bottom: 0,
+  },
+  submit:{
+    marginRight:250,
+    backgroundColor:GREEN,
+    color:WHITE
+   },
   meeting_container: {
     flex: 1,
     position: 'relative',
@@ -33,6 +48,7 @@ const styles = StyleSheet.create({
   },
   label: {
     marginBottom: 10,
+    color:GREEN
   },
   field: {
     marginVertical: 15,

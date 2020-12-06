@@ -1,10 +1,11 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, Image} from 'react-native';
 import {Agenda} from 'react-native-calendars';
 import {Card, Paragraph, Colors} from 'react-native-paper';
 import moment from 'moment';
 
 import {Context} from 'store';
+import { GREEN } from 'globals/constants';
 
 export function UserMeeting() {
   const [meetings, setMeetings] = React.useState({});
@@ -28,12 +29,17 @@ export function UserMeeting() {
   return (
     <Agenda
       items={meetings}
+      theme={
+       {
+       agendaTodayColor:GREEN,
+        }
+      }
       renderItem={(meeting) => {
         return (
-          <View style={{paddingRight: 10, paddingVertical: 10}}>
+            <View style={{paddingRight: 10, paddingVertical: 10}}>
             <Card>
               <Card.Content>
-                <Paragraph>{meeting.title}</Paragraph>
+                <Paragraph >{meeting.title}</Paragraph>
                 <Paragraph style={{color: Colors.grey600}}>
                   {meeting.purpose}
                 </Paragraph>
@@ -52,7 +58,7 @@ export function UserMeeting() {
                 </Paragraph>
               </Card.Content>
             </Card>
-          </View>
+            </View>
         );
       }}
       renderEmptyDate={() => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text,Image} from 'react-native';
 import {
   Button,
   Modal,
@@ -9,11 +9,14 @@ import {
   TextInput,
 } from 'react-native-paper';
 
+import * as Animatable from 'react-native-animatable';
+
 import {Context} from 'store';
 import styles from './login-style';
 // import Background from './assets/background';
 import routes from 'navigation/routes';
 import Loading from 'components/Loading';
+import { BLUE ,GREEN,WHITE} from 'globals/constants';
 
 const initial_state = {
   phone: '',
@@ -92,11 +95,20 @@ export default function Login(props) {
         <Modal visible={modal} onDismiss={() => toggleModal()}>
           <View style={styles.otp_card}>
             {otp ? (
-              <Card>
-                <Card.Title title="ENTER OTP" />
+              <Card  style={styles.phoneCard}>
+                <Card.Title title="ENTER OTP" titleStyle={{marginLeft:20,color:WHITE}}/>
                 <Card.Content>
                   <TextInput
+                    style={styles.textPhone}
                     value={field.otp}
+                    theme={
+                      {
+                        colors:{
+                          primary:GREEN
+                        }
+                      }
+                    }
+                    placeholderTextColor={GREEN}
                     keyboardType="phone-pad"
                     onChangeText={handleChange('otp')}
                     placeholder="YOUR OTP"
@@ -104,19 +116,31 @@ export default function Login(props) {
                 </Card.Content>
                 <Card.Actions>
                   <Button
+                    style={styles.loginPhone}
                     onPress={verifyOtp}
                     disabled={loading}
+                    color={GREEN}
                     loading={loading}>
                     VERIFY
                   </Button>
                 </Card.Actions>
               </Card>
             ) : (
-              <Card>
-                <Card.Title title="ENTER PHONE NUMBER" />
+              <Card style={styles.phoneCard}>
+                <Card.Title title="ENTER PHONE NUMBER" titleStyle={{marginLeft:20,color:WHITE}} />
                 <Card.Content>
                   <TextInput
+                    style={styles.textPhone}
                     value={field.phone}
+                    theme={
+                      {
+                        colors:{
+                          primary:GREEN
+                        }
+                      }
+                    }
+                    placeholderTextColor={GREEN}
+                    underlineColorAndroid={Button}
                     onChangeText={handleChange('phone')}
                     keyboardType="phone-pad"
                     placeholder="PHONE NUMBER"
@@ -124,8 +148,10 @@ export default function Login(props) {
                 </Card.Content>
                 <Card.Actions>
                   <Button
+                    style={styles.loginPhone}
                     onPress={sendOtp}
                     disabled={loading}
+                    color={GREEN}
                     loading={loading}>
                     LOGIN
                   </Button>
@@ -137,12 +163,19 @@ export default function Login(props) {
       </Portal>
       <View style={styles.screen}>
         <View style={styles.background}>{/* <Background /> */}</View>
-        <View style={styles.image}>
+        <Animatable.View
+        animation="slideInDown"
+        style={styles.image}>
           <View style={styles.login}>
-            <Text style={styles.title}>CERTITUDE</Text>
+          <Image source={require('./assets/narayana.png')}
+          borderRadius={5}
+          style={{width:150,height:150}}/>
+            <Text style={styles.title}>MALAGUNDLA SHANKAR NARAYANA</Text>
+            <Text style={styles.disc}>BC MINISTER PENUKONDA</Text>
             <Text style={styles.sub_title}>LOGIN, TO GET STARTED</Text>
           </View>
-          <View style={styles.login_card}>
+          <View 
+          style={styles.login_card}>
             <Button
               icon="facebook"
               style={styles.button}
@@ -160,10 +193,12 @@ export default function Login(props) {
               GOOGLE
             </Button>
           </View>
-          <View style={styles.otp_container}>
-            <Button onPress={toggleModal}>LOGIN USING PHONE</Button>
-          </View>
-        </View>
+            <Button
+            icon="phone" 
+            mode="contained"
+            style={styles.phone}
+             onPress={toggleModal}>LOGIN WITH PHONE</Button>
+        </Animatable.View>
       </View>
     </>
   );

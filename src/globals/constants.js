@@ -19,7 +19,7 @@ export const web_client_id ='512048225846-urp728dc1mq5rah2nef09jcc8b87dmk3.apps.
 
 // COLORS CONFIG
 export const RED = '#db3236';
-export const GREEN = '#008E46';
+export const GREEN = '#248c2d';
 export const YELLOW = '#f4c20d';
 export const BLUE = '#0266B4';
 export const BLACK = '#000000';

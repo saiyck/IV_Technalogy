@@ -3,7 +3,7 @@ import {View, Text, ScrollView,Image} from 'react-native';
 import {List, Button, Dialog, Portal} from 'react-native-paper';
 
 import {Context} from 'store';
-import {RED, GREEN, YELLOW, BLUE} from 'globals/constants';
+import {RED, GREEN, YELLOW, BLUE, ORANGE} from 'globals/constants';
 import routes from 'navigation/routes';
 
 import styles from './profile-style';
@@ -32,11 +32,14 @@ function Profile(props) {
       case 'complaints':
         props.navigation.navigate(routes.user_complaints);
         break;
+      case 'user':
+        props.navigation.navigate(routes.users);
+        break;  
       case 'news':
         props.navigation.navigate(routes.user_news);
         break;
       case 'requests':
-        props.navigation.navigate(routes.requests);
+        props.navigation.navigate(routes.user_requests);
         break;
       case 'logout':
         handlers.logout(() => {
@@ -67,6 +70,7 @@ function Profile(props) {
     handlers.updateUser(state.user.data.id, values, () => {
       setDialog(false);
       handlers.updateLocalData(values);
+      alert('Kyc Updated Click request For verification!');
     });
   }
 
@@ -109,14 +113,24 @@ function Profile(props) {
                 onPress={() => showScreen('logout')}>
                 LOGOUT
               </Button>
-              <Button icon="pencil" onPress={() => setDialog(true)}>
-                UPDATE INFO
-              </Button>
+              {state.user.data.type === 'casual' ?
+                <Button color={BLUE} icon="pencil" onPress={() => setDialog(true)}>
+                UPDATE KYC
+              </Button> :
+              <Button color={GREEN} icon="pencil" onPress={() => setDialog(true)}>
+              PROFILE
+            </Button>
+              }
             </View>
-            {state.user.data.type !== 'admin' &&
+            { state.user.data.type !== 'admin'&&
               state.user.data.type !== 'designated' &&
-              state.user.data.type !== 'requestor' && (
-                <Button onPress={createRequest}>REQUEST</Button>
+              state.user.data.type !== 'requestor' && 
+              state.user.data.aadhar !== null &&
+              (
+                <Button 
+                icon="key"
+                color={ORANGE}
+                onPress={createRequest}>REQUEST</Button>
               )}
           </View>
         </View>
@@ -137,7 +151,8 @@ function Profile(props) {
                 />
               )}
             {state.user.data.type !== 'requestor' &&
-              state.user.data.type !== 'casual' && (
+              state.user.data.type !== 'casual' && 
+              state.user.data.type !== 'designated' &&(
                 <List.Item
                   title="SLOTS"
                   onPress={() => showScreen('slots')}
@@ -145,7 +160,7 @@ function Profile(props) {
                     <List.Icon {...icon_props} icon="arrow-right" />
                   )}
                   left={(icon_props) => (
-                    <List.Icon {...icon_props} color="orange" icon="calendar" />
+                    <List.Icon {...icon_props} color="orange" icon="slot-machine-outline" />
                   )}
                 />
               )}
@@ -158,7 +173,7 @@ function Profile(props) {
                     <List.Icon {...icon_props} icon="arrow-right" />
                   )}
                   left={(icon_props) => (
-                    <List.Icon {...icon_props} color={GREEN} icon="check" />
+                    <List.Icon {...icon_props} color={GREEN} icon="file-document-edit-outline" />
                   )}
                 />
               )}
@@ -176,9 +191,10 @@ function Profile(props) {
                 />
               )}
             {state.user.data.type !== 'requestor' &&
-              state.user.data.type !== 'casual' && (
+              state.user.data.type !== 'casual' && 
+              state.user.data.type !== 'designated' &&(
                 <List.Item
-                  title="REQUESTS & USER"
+                  title="REQUEST USERS"
                   onPress={() => showScreen('requests')}
                   right={(icon_props) => (
                     <List.Icon {...icon_props} icon="arrow-right" />
@@ -192,8 +208,27 @@ function Profile(props) {
                   )}
                 />
               )}
+              {state.user.data.type !== 'requestor' &&
+              state.user.data.type !== 'casual' && 
+              state.user.data.type !== 'designated' &&(
+                <List.Item
+                  title="USERS"
+                  onPress={() => showScreen('user')}
+                  right={(icon_props) => (
+                    <List.Icon {...icon_props} icon="arrow-right" />
+                  )}
+                  left={(icon_props) => (
+                    <List.Icon
+                      {...icon_props}
+                      color='#349eeb'
+                      icon="kabaddi"
+                    />
+                  )}
+                />
+              )}
             {state.user.data.type !== 'requestor' &&
-              state.user.data.type !== 'casual' && (
+              state.user.data.type !== 'casual' && 
+              state.user.data.type !== 'designated' &&(
                 <List.Item
                   title="LOCATIONS"
                   onPress={() => showScreen('location')}

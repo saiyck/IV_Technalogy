@@ -47,7 +47,7 @@ export const getUserMeeting = (state, setState) => async (cb) => {
   console.info('TOEKN DAATA', state);
   const res = await fetchRequest(`/meeting/${id}`, state.user.token);
   if (res.error) {
-    alert(`ERROR MEETING  ${res.error.message}`);
+    alert(`PLEASE UPDATE KYC...${res.error.message}`);
     console.info('GETTING USER MEETING ERROR', res);
   } else {
     console.info('RESPONSE DATA', res.data);

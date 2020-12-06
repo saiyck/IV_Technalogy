@@ -66,7 +66,7 @@ export const getUserComplaints = (state, setState) => async (cb) => {
   const {id} = state.user.data;
   const res = await fetchRequest(`/complaint/${id}`, state.user.token);
   if (res.error) {
-    alert(`ERROR FETCHING COMPLAINTS... ${res.error.message}`);
+    alert(`PLEASE UPDATE KYC... ${res.error.message}`);
     console.info('FETCHING COMPLAINTS ERROR', res);
   } else {
     setState({...state, complaints: res.data});

@@ -6,14 +6,16 @@ import {Card, Button} from 'react-native-paper';
 
 import {Context} from 'store';
 import styles from './newscard-styles';
-import {base_url, linking_url, RED} from 'globals/constants';
+import {base_url, BLACK, GREEN, linking_url, RED} from 'globals/constants';
 import {WIDTH} from 'constants';
 import {HEIGHT} from 'constants';
 import ScaledImage from 'components/ScaledImage';
 function NewsCard(props) {
   const {handlers, state} = React.useContext(Context);
   const [likes, setLikes] = React.useState([]);
+  const [comments, setComments] = React.useState([]);
   const is_admin = props.type === 'admin';
+  const is_designated = props.type === 'designated';
   const uri = props.id
     ? `${base_url}/public/news/${props.id}.jpeg`
     : 'https://picsum.photos/700';
@@ -25,7 +27,7 @@ function NewsCard(props) {
   function shareNews() {
     Share.share(
       {
-        message: `${props.title} \n${linking_url}/news/share/${props.id}`,
+        message:`${props.title} \n${linking_url}/news/share/${props.id}`,
         title: props.title,
       },
       {
@@ -44,7 +46,7 @@ function NewsCard(props) {
 
   function getComments() {
     handlers.getCommentsLikes(props.id, (res_data) => {
-      // setComments(res_data.comments);
+      setComments(res_data.comments);
       setLikes(res_data.likes);
     });
   }
@@ -59,23 +61,32 @@ function NewsCard(props) {
         }
       }}>
       <Card style={styles.news_container}>
-        <Card.Title title={props.title} subtitle={props.content}/>
+        <Card.Title title={props.title}/>
         <SharedElement id={`image-${props.index}`}>
           <ScaledImage source={{uri}} />
         </SharedElement>
+        <Card.Title subtitle={props.content}
+        subtitleNumberOfLines={3}
+        subtitleStyle={{color:BLACK,fontFamily:'arial',fontWeight:"500",}}/>
         <Card.Actions style={styles.actions}>
           <View style={styles.user_actions}>
             <Button
               onPress={toggleLike}
               disabled={!state.user.token}
               icon={i_liked ? 'heart' : 'heart-outline'}
-              color={RED}>
+              color={GREEN}>
               {likes.length}
             </Button>
             <Button
               style={styles.action_btn}
+              icon="comment-outline"
+              color={GREEN}
+              onPress={() => props.onSelect(props.index)}
+            >{comments.length}</Button>
+            <Button
+              style={styles.action_btn}
               icon="share-variant"
-              color={RED}
+              color={GREEN}
               onPress={shareNews}
             />
           </View>
@@ -91,8 +102,8 @@ function NewsCard(props) {
             )}
             <Button
               style={styles.action_btn}
-              color={RED}
-              onPress={() => props.onSelect(props.index)}>
+              color={GREEN}
+              >
               READ MORE
             </Button>
           </View>

@@ -13,94 +13,19 @@ import {
   TouchableHighlight,
   TouchableNativeFeedback,
 } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import {Context} from 'store';
-import ImagePicker from 'react-native-image-crop-picker';
+import {Portal,Modal,Button} from 'react-native-paper';
 import moment from 'moment';
-import { BLUE, WHITE } from 'globals/constants';
+import {HEIGHT} from 'constants';
+import { BLACK, BLUE, WHITE,RED } from 'globals/constants';
 //import ImagePicker from 'react-native-image-crop-picker';
 //import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-const re = {
-  email: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-  mobile: /[0-9]{10}/,
-};
-const UpdateKyc = (props) => {
-  const [show, setShow] = React.useState(false);
-  const [fields, setFields] = React.useState({
-    name: props.user.name,
-    email: props.user.email,
-    mobile: props.user.mobile,
-    dob: props.user.dob ? props.user.dob : new Date(),
-    aadhar:props.user.aadhar,
-    photo:props.user.photo ? props.user.photo :'https://www.oneeducation.org.uk/wp-content/uploads/2020/06/cool-profile-icons-69.png',
-    adharfront:props.user.adharfront ? props.user.adharfront:'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT5ZkZZAsuWb5mOi6vakK28Lx2qJhPE3y-YSg&usqp=CAU',
-    adharback:props.user.adharback ? props.user.adharback : 'https://cdn.iconscout.com/icon/free/png-64/aadhaar-2085055-1747945.png',
-    address:props.user.address,
-  });
-  
-  
-  function updateField(k, v) {
-    setShow(false);
-    if (k === 'dob') {
-      setFields({...fields, [k]: v.nativeEvent.timestamp});
-    } else {
-      setFields({...fields, [k]: v});
-    }
-  }
- 
-  function handleImageSelect(k) {
-    ImagePicker.openPicker({
-      width:100,
-      height:100,
-      includeBase64:true,
-      mediaType: "photo",
-    }).then((images) => {
-      console.log(`data:${images.mime};base64,${images.data}`);
-      updateField(k, `data:${images.mime};base64,${images.data}`);
-    });
-  }
-  function handleSubmit() {
-    let ok = true;
-    Object.keys(fields).forEach((k) => {
-      if (ok) {
-        if (!fields[k] || fields[k] === '') {
-          ok = false;
-        }
 
-        if (ok) {
-          switch (k) {
-            case 'email':
-              ok = re.email.test(fields[k].toLowerCase());
-              break;
-            case 'mobile':
-              ok = re.mobile.test(fields[k].toLowerCase());
-              break;
-          }
-        }
-      }
-    });
+const UserProfile = (props) => {
+  let {name,photo,email,dob,mobile,aadhar,adharback,adharfront,address} = props.route.params;
 
-    if (!ok) {
-      alert('SOME FIELDS ARE NOT VALID!');
-    } else {
-      if (fields.dob) {
-        fields.dob = new Date(fields.dob);
-      }
-      props.onFinish(fields);
-    }
-  }
-
-    return (
-  
-      
+  const [open, setOpen] = React.useState(false);
+    return (      
       <ScrollView>
-     {show && (
-        <DateTimePicker
-          value={moment(fields.dob).toDate()}
-          mode="date"
-          onChange={(v)=>updateField('dob',v)}
-        />
-      )}
         <View style={styles.container}>
           <View
             style={{
@@ -109,21 +34,12 @@ const UpdateKyc = (props) => {
               justifyContent: 'center',
               top: 20,
             }}>
-            <TouchableOpacity onPress={()=>handleImageSelect('photo')}
-             
-              style={{
-                height: 105,
-                width: 108,
-                borderRadius: 100,
-                backgroundColor: 'white',
-              }}>
               {
                 <Image
-                  source={{uri:fields.photo}}
+                  source={{uri:photo}}
                   style={{height: 105, width: 108, borderRadius: 100}}
                 />
-              }
-            </TouchableOpacity>
+              }  
           </View>
           <View style={styles.inputContainer}>
             <Image
@@ -139,8 +55,9 @@ const UpdateKyc = (props) => {
               placeholder="Full name"
               keyboardType="default"
               underlineColorAndroid="transparent"
-              value={fields.name}
-              onChangeText={(v) => updateField('name',v)}
+              value={name}
+              editable={false}
+             
             />
           </View>
           <View style={styles.inputContainer}>
@@ -156,10 +73,9 @@ const UpdateKyc = (props) => {
               style={styles.inputs}
               placeholder="Email"
               keyboardType="email-address"
-              editable={Boolean(!props.user.email)}
-              value={fields.email}
               underlineColorAndroid="transparent"
-              onChangeText={(v) => updateField('email',v)}
+              value={email}
+              editable={false}
             />
           </View>
 
@@ -176,12 +92,11 @@ const UpdateKyc = (props) => {
               placeholder="Mobile number"
               keyboardType="number-pad"
               maxLength={10}
-              value={fields.mobile}
+              editable={false}
               underlineColorAndroid="transparent"
-              onChangeText={(v) => updateField('mobile',v)}
+              value={mobile}
             />
           </View> 
-          <TouchableNativeFeedback  onPress={() => setShow(true)}>
             <View style={styles.inputContainer}>
             
             <Image
@@ -196,10 +111,9 @@ const UpdateKyc = (props) => {
               placeholder="DATE OF BIRTH"
               editable={false}
               underlineColorAndroid="transparent"
-              value={moment(fields.dob).format('DD-MM-YYYY')}
+              value={moment(dob).format('DD-MM-YYYY')}
             />
             </View>
-            </TouchableNativeFeedback>
           
           
           <View style={styles.inputContainer}>
@@ -214,38 +128,33 @@ const UpdateKyc = (props) => {
               style={styles.inputs}
               placeholder="Aadhar Id"
               keyboardType="numeric"
-              editable={Boolean(!props.user.aadhar)}
               maxLength={12}
               // secureTextEntry={true}
-              value={fields.aadhar}
               underlineColorAndroid="transparent"
-              onChangeText={(v) => updateField('aadhar',v)}
+              editable={false}
+              value={aadhar}
             />
           </View>
           <View style={{top: 25}}>
             <View style={styles.ImageSections}>
-              <TouchableOpacity onPress={()=>handleImageSelect('adharfront')}>
                 <View >
                 <Image 
-                  source={{uri:fields.adharfront}}
                   style={styles.images}
+                  source={{uri:adharfront}}
                 />
                   <Text style={{textAlign: 'center'}}>aadhar front image</Text>
                 </View>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={()=>handleImageSelect('adharback')} >
                 <View>
                 <Image
-                  source={{uri:fields.adharback}}
                   style={styles.images}
+                  source={{uri:adharback}}
                 />
                   <Text style={{textAlign: 'center'}}>aadhar back image</Text>
                 </View>
-              </TouchableOpacity>
             </View>
           </View>
 
-          <View style={styles.inputContainer}>
+          <View style={styles.inputAddress}>
             <Image
               style={styles.inputIcon}
               source={{
@@ -255,26 +164,23 @@ const UpdateKyc = (props) => {
             />
             <TextInput
               placeholder="Address"
-              // secureTextEntry={true}
+              style={{height:150,color:BLACK}}
               underlineColorAndroid="white"
-              value={fields.address}
               multiline={true}
+              editable={false}
               numberOfLines={3}
-              onChangeText={(v) => updateField('address',v)}
+              value={address}
             />
-          </View>
+            <View>
 
-          <TouchableHighlight
-            style={[styles.buttonContainer, styles.submitButton]}
-            onPress={handleSubmit}>
-            <Text style={styles.submit}>update</Text>
-          </TouchableHighlight>
+            </View>
+          </View>
         </View>
       </ScrollView>
     );
 };
 
-export default UpdateKyc;
+export default UserProfile;
     
 
 
@@ -298,7 +204,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 3,
   },
   container: {
-    padding: 20,
+    paddingBottom: 80,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -314,11 +220,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     top: 40,
   },
+  inputAddress: {
+    borderBottomColor: '#F5FCFF',
+    backgroundColor: '#FFFFFF',
+    borderBottomWidth: 1,
+    width: 320,
+    height: 100,
+    marginBottom: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    top: 40,
+  },
   inputs: {
     height: 45,
     marginLeft: 16,
     borderBottomColor: '#FFFFFF',
     flex: 1,
+    color:BLACK,
   },
   inputIcon: {
     width: 30,

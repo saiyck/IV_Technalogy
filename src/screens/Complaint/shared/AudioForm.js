@@ -135,7 +135,9 @@ export default function AudioForm(props) {
           <Card style={styles.title_card}>
             <Card.Title
               title="RECORD AUDIO HERE"
+              titleStyle={{color:GREEN}}
               subtitle="start recording and stop"
+              subtitleStyle={{color:GREEN}}
             />
             <Card.Content>
               <AudioRecorder
@@ -154,6 +156,12 @@ export default function AudioForm(props) {
                 label="TITLE"
                 maxLength={MAX_TITLE_LENGTH}
                 placeholder="YOUR COMPLAINT REGARDING"
+                theme={{
+                  colors:{
+                    placeholder:GREEN,
+                    primary:GREEN,
+                  }
+                }}
               />
               <HelperText>
                 {fields.title.length} / {MAX_TITLE_LENGTH}
@@ -162,31 +170,32 @@ export default function AudioForm(props) {
             <Card.Content style={styles.field_container}>
               <TextInput
                 label="DESCRIPTION"
+                style={{color:GREEN}}
                 maxLength={MAX_DESC_LENGTH}
                 onChangeText={(v) => updateField('description', v)}
                 multiline
                 numberOfLines={4}
                 placeholder="SOME MORE INPUTS ON YOUR COMPLAINT"
+                theme={{
+                  colors:{
+                    placeholder:GREEN,
+                    primary:GREEN,
+                  }
+                }}
               />
               <HelperText>
                 {fields.description.length} / {MAX_DESC_LENGTH}
               </HelperText>
             </Card.Content>
             <Card.Content>
-              <Picker
+              <Picker 
+                style={{color:GREEN}}
                 selectedValue={fields.lang_code}
                 onValueChange={(v) => updateField('lang_code', v)}>
                 {options.map((opt) => (
                   <Picker.Item {...opt} />
                 ))}
               </Picker>
-            </Card.Content>
-            <Card.Content style={styles.field_container}>
-              <Button
-                onPress={handleImageSelect}
-                disabled={fields.images.length === 4 || recording}>
-                ADD IMAGES
-              </Button>
             </Card.Content>
             <Card.Content style={styles.gallery}>
               {fields.images.map((img) => (
@@ -199,15 +208,27 @@ export default function AudioForm(props) {
                 </TouchableHighlight>
               ))}
             </Card.Content>
-            <Card.Actions>
+            <Card.Content style={styles.field_container}>
+            <View style={styles.imageUploader}>
+              <Image source={require('./assets/imageUploader.png')}
+              style={{width:40,height:40,marginLeft:60}}/>
               <Button
-                
+                color={GREEN}
+                onPress={handleImageSelect}
+                disabled={fields.images.length === 4 || recording}>
+                ADD IMAGES
+              </Button>
+              </View>
+            </Card.Content>
+            <Card.Actions>
+            <Button
+                style={styles.send}
                 onPress={submitComplaint}
+                color={WHITE}
                 disabled={loading || recording}
-               
                 icon="check">
                 SUBMIT
-              </Button>
+              </Button> 
             </Card.Actions>
           </Card>
           <Card />

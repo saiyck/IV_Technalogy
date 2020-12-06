@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {BLUE} from 'globals/constants';
+import {BLUE, GREEN} from 'globals/constants';
 
 const styles = StyleSheet.create({
   news_container: {
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     margin: 16,
     right: 0,
     bottom: 0,
-    backgroundColor: BLUE,
+    backgroundColor: GREEN,
   },
   header: {
     marginTop: 25,

@@ -1,4 +1,4 @@
-import { ORANGE } from 'globals/constants';
+import { GREEN, ORANGE } from 'globals/constants';
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     marginHorizontal: 15,
     borderLeftWidth: 10,
-    borderLeftColor: ORANGE,
+    borderLeftColor: GREEN,
   },
   actions: {
     justifyContent: 'flex-end',

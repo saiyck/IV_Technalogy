@@ -14,7 +14,7 @@ import {
 } from 'react-native-paper';
 
 import styles from './singlenews-styles';
-import {base_url, linking_url, RED} from 'globals/constants';
+import {base_url, GREEN, linking_url, RED} from 'globals/constants';
 import {Context} from 'store';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {HEIGHT} from 'constants';
@@ -103,7 +103,9 @@ function SingleNews(props) {
               <TouchableOpacity onPress={() => setOpen(true)}>
                 <Card.Cover source={{uri}} />
               </TouchableOpacity>
-              <Card.Title title={title} />
+              <Card.Title title={title} 
+              titleNumberOfLines={2}
+              titleStyle={{fontSize:18}}/>
               <Card.Content>
                 <Paragraph>{content}</Paragraph>
               </Card.Content>
@@ -113,6 +115,11 @@ function SingleNews(props) {
                 onChangeText={setComment}
                 style={styles.field}
                 value={comment}
+                theme={{
+                  colors:{
+                    primary:GREEN
+                  }
+                }}
                 label="ADD A COMMENT"
               />
               <View style={styles.actions_ctr}>
@@ -120,12 +127,13 @@ function SingleNews(props) {
                   onPress={toggleLike}
                   disabled={!state.user.token}
                   icon={i_liked ? 'heart' : 'heart-outline'}
-                  color={RED}>
+                  color={GREEN}>
                   {likes.length}
                 </Button>
                 <Button
                   disabled={!state.user.token || !comment}
                   icon="plus"
+                  color={GREEN}
                   onPress={addComment}>
                   ADD COMMENT
                 </Button>

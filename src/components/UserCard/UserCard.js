@@ -1,20 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {TouchableOpacity} from 'react-native';
+import {TouchableOpacity,View,Image} from 'react-native';
 // import {SharedElement} from 'react-native-shared-element';
 import {Card, Button, Text} from 'react-native-paper';
 
 import styles from './usercard-styles';
 import {RED, GREEN} from 'globals/constants';
 
+
+
 function UserCard(props) {
   return (
-    <TouchableOpacity onPress={() => props.onSelect('view', props.index)}>
+    <TouchableOpacity onPress={() => props.onOpen(props.index)}>
       <Card style={styles.container}>
-        <Card.Title
-          title={props.name}
-          subtitle={`${props.type} / ${props.email ? props.email : 'NO EMAIL'}`}
-        />
+        <View style={styles.userCard}>
+          <Image style={styles.userImage} source={{uri:`${props.photo}`}}/>
+          <View style={styles.userText}>
+          <Text style={styles.nameText}>{props.name}</Text>
+          <Text style={styles.emailText}>{`${props.type} / ${props.email ? props.email : 'NO EMAIL'}`}</Text>
+          </View>
+        </View>
         <Card.Actions style={styles.actions}>
           {props.status ? (
             <Text style={{padding: 10, textTransform: 'uppercase'}}>

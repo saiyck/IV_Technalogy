@@ -1,5 +1,6 @@
-import { GREEN } from 'globals/constants';
+import { BLUE, GREEN, RED } from 'globals/constants';
 import {StyleSheet} from 'react-native';
+import { color } from 'react-native-reanimated';
 
 const styles = StyleSheet.create({
   audioform: {
@@ -15,11 +16,19 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   audio_text:{
-    borderBottomWidth:1,
-    borderBottomColor:GREEN
+    color:GREEN
   },
-  record_bt: {
+  imageUploader:{
+    flexDirection:'row'
+  },
+  send:{
+    marginRight:250,
+    backgroundColor:GREEN,
+  },
+  records: {
     marginVertical: 20,
+    height:30,
+    color:BLUE
   },
   gallery: {
     display: 'flex',

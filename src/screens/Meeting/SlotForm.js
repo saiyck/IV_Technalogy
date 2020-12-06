@@ -6,6 +6,7 @@ import {Picker} from '@react-native-community/picker';
 import moment from 'moment';
 
 import {Context} from 'store';
+import { GREEN } from 'globals/constants';
 
 const initial_values = {
   date: new Date(),
@@ -120,7 +121,7 @@ export function SlotForm() {
                 ))}
               </Picker>
             </Card.Content>
-            <Button onPress={handleSubmit}>ADD DURATION</Button>
+            <Button color={GREEN} onPress={handleSubmit}>ADD DURATION</Button>
           </Card.Content>
         </Card>
       </View>
