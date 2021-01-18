@@ -1,4 +1,4 @@
-import { BLUE } from 'globals/constants';
+import { BLACK, BLUE, GREEN } from 'globals/constants';
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
@@ -18,10 +18,8 @@ const styles = StyleSheet.create({
   container: {
     padding: 5,
     marginTop: 10,
-    
   },
   profile_container: {
-    paddingTop: 30,
     backgroundColor: 'white',
     borderRadius: 10,
     elevation: 3, 
@@ -63,12 +61,13 @@ const styles = StyleSheet.create({
   },
   menu_container: {
     fontSize: 15,
+    color:BLACK,
+    marginLeft:5
     // color: 'grey',
   },
   menu_list: {
     backgroundColor: 'white',
     marginTop: 10,
-    padding: 10,
     elevation: 1,
     borderRadius: 4,
   },

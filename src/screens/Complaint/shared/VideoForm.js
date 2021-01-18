@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Image, TouchableHighlight} from 'react-native';
+import {View, Image, TouchableHighlight,ImageBackground,ScrollView} from 'react-native';
 import {
   Card,
   Button,
@@ -21,6 +21,7 @@ import {
   MAX_DESC_LENGTH,
   GREEN,
   WHITE,
+  TGREEN,
 } from 'globals/constants';
 import {HEIGHT} from 'constants';
 
@@ -126,16 +127,17 @@ export default function VideoForm(props) {
           </Button>
         </Modal>
       </Portal>
-      <View style={styles.audioform}>
+      <ScrollView style={styles.audioform}>
         <Portal>
           {/* <Dialog visible={dialog} onDismiss={() => setDialog(false)} /> */}
         </Portal>
         <Card style={styles.title_card}>
+          <ImageBackground source={require('./assets/tailcolor.jpg')} style={{justifyContent:'center'}}>
           <Card.Title
             title="RECORD VIDEO HERE"
-            titleStyle={{color:GREEN}}
+            titleStyle={{color:TGREEN}}
             subtitle="start recording and stop"
-            subtitleStyle={{color:GREEN}}
+            subtitleStyle={{color:TGREEN}}
           />
           <Card.Content>
             <Button
@@ -147,14 +149,15 @@ export default function VideoForm(props) {
           </Card.Content>
           <Card.Content style={styles.field_container}>
             <TextInput
-              style={{color:GREEN}}
+              style={{color:TGREEN,backgroundColor:WHITE}}
               onChangeText={(v) => updateField('title', v)}
               label="TITLE"
               placeholder="YOUR COMPLAINT REGARDING"
+              mode='outlined'
               theme={{
                 colors:{
-                  primary:GREEN,
-                  placeholder:GREEN
+                  primary:TGREEN,
+                  placeholder:TGREEN
                 }
               }}
             />
@@ -164,16 +167,17 @@ export default function VideoForm(props) {
           </Card.Content>
           <Card.Content style={styles.field_container}>
             <TextInput
-              style={{color:GREEN}}
+              style={{color:GREEN,backgroundColor:WHITE}}
               label="DESCRIPTION"
+              mode='outlined'
               onChangeText={(v) => updateField('description', v)}
               multiline
-              numberOfLines={4}
+              numberOfLines={6}
               placeholder="SOME MORE INPUTS ON YOUR COMPLAINT"
               theme={{
                 colors:{
-                  primary:GREEN,
-                  placeholder:GREEN
+                  primary:TGREEN,
+                  placeholder:TGREEN
                 }
               }}
             />
@@ -197,7 +201,7 @@ export default function VideoForm(props) {
               <Image source={require('./assets/imageUploader.png')}
               style={{width:40,height:40,marginLeft:60}}/>
               <Button
-                color={GREEN}
+                color={TGREEN}
                 onPress={handleImageSelect}
                 disabled={fields.images.length === 4}>
                 ADD IMAGES
@@ -208,14 +212,15 @@ export default function VideoForm(props) {
           <Button
                 style={styles.send}
                 onPress={submitComplaint}
-                color={WHITE}
+                color={TGREEN}
                 disabled={loading}
                 icon="check">
                 SUBMIT
               </Button> 
           </Card.Actions>
+          </ImageBackground>
         </Card>
-      </View>
+        </ScrollView>
     </>
   );
 }

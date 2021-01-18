@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, ScrollView, Image, TouchableHighlight} from 'react-native';
+import {View, ScrollView, Image, TouchableHighlight,ImageBackground} from 'react-native';
 import {
   Card,
   Button,
@@ -23,6 +23,8 @@ import {
   RED,
   GREEN,
   WHITE,
+  TGREEN,
+  BLUE,
 } from 'globals/constants';
 import Loading from 'components/Loading';
 import {HEIGHT} from 'constants';
@@ -133,11 +135,12 @@ export default function AudioForm(props) {
         <View style={styles.audioform}>
           {loading && <Loading />}
           <Card style={styles.title_card}>
+            <ImageBackground source={require('./assets/tailcolor.jpg')} style={{justifyContent:'center'}}>
             <Card.Title
               title="RECORD AUDIO HERE"
-              titleStyle={{color:GREEN}}
+              titleStyle={{color:TGREEN}}
               subtitle="start recording and stop"
-              subtitleStyle={{color:GREEN}}
+              subtitleStyle={{color:TGREEN}}
             />
             <Card.Content>
               <AudioRecorder
@@ -154,12 +157,13 @@ export default function AudioForm(props) {
                 style={styles.audio_text}
                 onChangeText={(v) => updateField('title', v)}
                 label="TITLE"
+                mode='outlined'
                 maxLength={MAX_TITLE_LENGTH}
                 placeholder="YOUR COMPLAINT REGARDING"
                 theme={{
                   colors:{
-                    placeholder:GREEN,
-                    primary:GREEN,
+                    placeholder:TGREEN,
+                    primary:TGREEN,
                   }
                 }}
               />
@@ -170,7 +174,8 @@ export default function AudioForm(props) {
             <Card.Content style={styles.field_container}>
               <TextInput
                 label="DESCRIPTION"
-                style={{color:GREEN}}
+                mode='outlined'
+                style={{color:TGREEN,backgroundColor:WHITE}}
                 maxLength={MAX_DESC_LENGTH}
                 onChangeText={(v) => updateField('description', v)}
                 multiline
@@ -178,8 +183,8 @@ export default function AudioForm(props) {
                 placeholder="SOME MORE INPUTS ON YOUR COMPLAINT"
                 theme={{
                   colors:{
-                    placeholder:GREEN,
-                    primary:GREEN,
+                    placeholder:TGREEN,
+                    primary:TGREEN,
                   }
                 }}
               />
@@ -189,7 +194,7 @@ export default function AudioForm(props) {
             </Card.Content>
             <Card.Content>
               <Picker 
-                style={{color:GREEN}}
+                style={{color:TGREEN}}
                 selectedValue={fields.lang_code}
                 onValueChange={(v) => updateField('lang_code', v)}>
                 {options.map((opt) => (
@@ -213,7 +218,7 @@ export default function AudioForm(props) {
               <Image source={require('./assets/imageUploader.png')}
               style={{width:40,height:40,marginLeft:60}}/>
               <Button
-                color={GREEN}
+                color={TGREEN}
                 onPress={handleImageSelect}
                 disabled={fields.images.length === 4 || recording}>
                 ADD IMAGES
@@ -224,12 +229,13 @@ export default function AudioForm(props) {
             <Button
                 style={styles.send}
                 onPress={submitComplaint}
-                color={WHITE}
+                color={TGREEN}
                 disabled={loading || recording}
                 icon="check">
                 SUBMIT
               </Button> 
             </Card.Actions>
+          </ImageBackground>
           </Card>
           <Card />
         </View>

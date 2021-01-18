@@ -12,6 +12,7 @@ import {
   TextInput,
   TouchableHighlight,
   TouchableNativeFeedback,
+  ImageBackground
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {Context} from 'store';
@@ -56,7 +57,7 @@ const UpdateKyc = (props) => {
       mediaType: "photo",
     }).then((images) => {
       console.log(`data:${images.mime};base64,${images.data}`);
-      updateField(k, `data:${images.mime};base64,${images.data}`);
+      updateField(k, images.path);
     });
   }
   function handleSubmit() {
@@ -102,6 +103,7 @@ const UpdateKyc = (props) => {
         />
       )}
         <View style={styles.container}>
+          <ImageBackground source={require('./assets/backProfile.jpg')} style={{flex:1,justifyContent:'center',padding:20}}>
           <View
             style={{
               flex: 1,
@@ -109,8 +111,7 @@ const UpdateKyc = (props) => {
               justifyContent: 'center',
               top: 20,
             }}>
-            <TouchableOpacity onPress={()=>handleImageSelect('photo')}
-             
+            <TouchableOpacity 
               style={{
                 height: 105,
                 width: 108,
@@ -245,7 +246,7 @@ const UpdateKyc = (props) => {
             </View>
           </View>
 
-          <View style={styles.inputContainer}>
+          <View>
             <Image
               style={styles.inputIcon}
               source={{
@@ -259,7 +260,8 @@ const UpdateKyc = (props) => {
               underlineColorAndroid="white"
               value={fields.address}
               multiline={true}
-              numberOfLines={3}
+              style={{backgroundColor:WHITE}}
+              numberOfLines={4}
               onChangeText={(v) => updateField('address',v)}
             />
           </View>
@@ -269,6 +271,7 @@ const UpdateKyc = (props) => {
             onPress={handleSubmit}>
             <Text style={styles.submit}>update</Text>
           </TouchableHighlight>
+          </ImageBackground>
         </View>
       </ScrollView>
     );
@@ -298,7 +301,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 3,
   },
   container: {
-    padding: 20,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -327,13 +329,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   buttonContainer: {
-    top: 50,
+    top: 20,
     height: 45,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 40,
-    width: 250,
+    width: 200,
     borderRadius: 30,
   },
   submitButton: {
@@ -341,7 +343,7 @@ const styles = StyleSheet.create({
   },
   submit: {
     color: 'white',
-    fontSize: 18,
+    fontSize: 15,
   },
   field: {
     marginVertical:2,

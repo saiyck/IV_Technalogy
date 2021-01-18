@@ -6,7 +6,7 @@ import Sound from 'react-native-sound';
 import AudioRecord from 'react-native-audio-record';
 
 import styles from './audio-styles';
-import {AUDIO_MAX_SECS, GREEN, RED} from 'globals/constants';
+import {AUDIO_MAX_SECS, GREEN, RED, TGREEN} from 'globals/constants';
 
 export default class AudioRecorder extends Component {
   sound = null;
@@ -182,7 +182,7 @@ export default class AudioRecorder extends Component {
             STOP
           </Button>
           {paused ? (
-            <Button color={GREEN} onPress={this.play} icon="play" disabled={!audioFile}>
+            <Button color={TGREEN} onPress={this.play} icon="play" disabled={!audioFile}>
               PLAY
             </Button>
           ) : (

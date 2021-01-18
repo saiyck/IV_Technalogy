@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, ScrollView, Text, TouchableHighlight} from 'react-native';
+import {View, ScrollView, Text, TouchableHighlight,ImageBackground} from 'react-native';
 import {Card, TextInput,Button} from 'react-native-paper';
 import {FAB} from 'react-native-paper';
 import {Picker} from '@react-native-community/picker';
@@ -10,7 +10,7 @@ import Loading from 'components/Loading';
 import {Context} from 'store';
 import styles from './meeting-style';
 import routes from 'navigation/routes';
-import { GREEN, WHITE } from 'globals/constants';
+import { GREEN, TGREEN, WHITE } from 'globals/constants';
 
 const initial_values = {
   title: '',
@@ -147,25 +147,26 @@ export function MeetingForm(props) {
       <View style={styles.meeting_container}>
         {loading && <Loading />}
         <ScrollView style={styles.container}>
+          <ImageBackground source={require('./assets/tailcolor.jpg')} style={{flex:1,justifyContent:'center',padding:20}}>
           <Card.Title
-            titleStyle={{color:GREEN}}
             title={title_text}
+            titleStyle={{color:TGREEN}}
             style={styles.title}
-            subtitleStyle={{color:GREEN}}
             subtitle="Please enter the details of your meeting"
+            subtitleStyle={{color:TGREEN}}
           />
-          <View style={styles.field}>
+          <View >
             <Text style={styles.label}>SCHEDULE A SLOT</Text>
             <TouchableHighlight onPress={() => setShow(true)}>
               <TextInput
                 label="SLOT DATE"
-                style={{color:GREEN}}
+                style={{backgroundColor:WHITE}}
                 placeholder="SLOT DATE"
+                mode='outlined'
                 theme={{
                   colors:{
-                    primary:GREEN,
-                    placeholder:GREEN,
-                    text:GREEN
+                    placeholder:TGREEN,
+                    primary:TGREEN
                   }
                 }}
                 disabled
@@ -175,7 +176,7 @@ export function MeetingForm(props) {
             <Card.Content style={{marginTop: 30}}>
               {slots.length ? (
                 <Picker
-                  style={{color:GREEN}}
+                  style={{color:TGREEN}}
                   selectedValue={field.slot}
                   onValueChange={(v) => handleChange('slot', v)}>
                   {slots.map((opt) => (
@@ -202,30 +203,33 @@ export function MeetingForm(props) {
             style={styles.field}
             theme={{
               colors:{
-                placeholder:GREEN,
-                primary:GREEN
+                placeholder:TGREEN,
+                primary:TGREEN
               }
             }}
             label="TITLE"
+            mode='outlined'
             onChangeText={(text) => handleChange('title', text)}
           />
           <TextInput
             style={styles.field}
             multiline
-            numberOfLines={10}
             theme={{
               colors:{
-                placeholder:GREEN,
-                primary:GREEN
+                placeholder:TGREEN,
+                primary:TGREEN
               }
             }}
             label="PURPOUSE"
+            numberOfLines={10}
+            mode='outlined'
             onChangeText={(text) => handleChange('purpose', text)}
           />
            <Button icon="check"
-           color={WHITE}
+           color={TGREEN}
            style={styles.submit}
            onPress={handleSubmit}>SUBMIT</Button>
+           </ImageBackground>
         </ScrollView>
       </View>
     </>

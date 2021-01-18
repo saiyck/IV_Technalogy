@@ -1,10 +1,11 @@
 import React from 'react';
-import {View, Text, ScrollView,Image} from 'react-native';
+import {View, Text, ScrollView,Image,ImageBackground} from 'react-native';
 import {List, Button, Dialog, Portal} from 'react-native-paper';
 
 import {Context} from 'store';
-import {RED, GREEN, YELLOW, BLUE, ORANGE} from 'globals/constants';
+import {RED, GREEN, YELLOW, BLUE, ORANGE, TGREEN} from 'globals/constants';
 import routes from 'navigation/routes';
+import LinearGradient from 'react-native-linear-gradient'
 
 import styles from './profile-style';
 import UpdateForm from './UpdateForm';
@@ -40,6 +41,9 @@ function Profile(props) {
         break;
       case 'requests':
         props.navigation.navigate(routes.user_requests);
+        break;
+      case 'admin':
+        props.navigation.navigate(routes.admin);
         break;
       case 'logout':
         handlers.logout(() => {
@@ -89,7 +93,6 @@ function Profile(props) {
       <View style={styles.profile}>
       
         <View style={styles.profile_container}>
-        
           {/* <View style={styles.image_container}>
             <Image
               style={styles.image}
@@ -111,14 +114,14 @@ function Profile(props) {
                 icon="power"
                 color={RED}
                 onPress={() => showScreen('logout')}>
-                LOGOUT
+                Logout
               </Button>
               {state.user.data.type === 'casual' ?
                 <Button color={BLUE} icon="pencil" onPress={() => setDialog(true)}>
                 UPDATE KYC
               </Button> :
-              <Button color={GREEN} icon="pencil" onPress={() => setDialog(true)}>
-              PROFILE
+              <Button color={BLUE} icon="pencil" onPress={() => setDialog(true)}>
+              Profile
             </Button>
               }
             </View>
@@ -135,7 +138,10 @@ function Profile(props) {
           </View>
         </View>
         <View style={styles.menu}>
-          <Text style={styles.menu_container}>MENU OPTIONS</Text>
+          {state.user.data.type !== 'casual'&&
+          state.user.data.type !== 'requestor'&&(
+            <Text style={styles.menu_container}>MENU OPTIONS</Text>
+          )}
           <View style={styles.menu_list}>
             {state.user.data.type !== 'requestor' &&
               state.user.data.type !== 'casual' && (
@@ -187,6 +193,24 @@ function Profile(props) {
                   )}
                   left={(icon_props) => (
                     <List.Icon {...icon_props} color={RED} icon="newspaper" />
+                  )}
+                />
+              )}
+              {state.user.data.type !== 'requestor' &&
+              state.user.data.type !== 'casual' && 
+              state.user.data.type !== 'designated' &&(
+                <List.Item
+                  title="DESIGNATED & ADMIN"
+                  onPress={() => showScreen('admin')}
+                  right={(icon_props) => (
+                    <List.Icon {...icon_props} icon="arrow-right" />
+                  )}
+                  left={(icon_props) => (
+                    <List.Icon
+                      {...icon_props}
+                      color={TGREEN}
+                      icon="badge-account"
+                    />
                   )}
                 />
               )}

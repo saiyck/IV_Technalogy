@@ -39,7 +39,8 @@ const Users = (props) => {
           refreshControl={
             <RefreshControl refreshing={loading} onRefresh={getUsers} />
           }>
-          {state.user.users.map((r , i) => (
+          {state.user.users.map((r , i)=> (
+            r.type !=='casual'&&
             <RequestCard 
             key={`${JSON.stringify(r)}-${i}`}
             {...r} 

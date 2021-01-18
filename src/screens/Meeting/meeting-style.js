@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {BLUE, GREEN, ORANGE, WHITE} from 'globals/constants';
+import {BLUE, GREEN, ORANGE, TGREEN, WHITE} from 'globals/constants';
 
 const styles = StyleSheet.create({
   container: {
@@ -17,8 +17,8 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   submit:{
-    marginRight:250,
-    backgroundColor:GREEN,
+    marginRight:230,
+    backgroundColor:WHITE,
     color:WHITE
    },
   meeting_container: {
@@ -43,15 +43,15 @@ const styles = StyleSheet.create({
   fontWeight:"400",
   },
   title: {
-    marginLeft: 0,
     paddingLeft: 0,
   },
   label: {
-    marginBottom: 10,
-    color:GREEN
+    marginBottom: 20,
+    color:TGREEN
   },
   field: {
     marginVertical: 15,
+    backgroundColor:WHITE
   },
   login_container: {
     marginVertical: 20,

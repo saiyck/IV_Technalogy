@@ -1,29 +1,32 @@
-import { BLUE, GREEN, RED } from 'globals/constants';
+import { BLACK, BLUE, GREEN, RED, TGREEN, WHITE } from 'globals/constants';
 import {StyleSheet} from 'react-native';
 import { color } from 'react-native-reanimated';
 
 const styles = StyleSheet.create({
   audioform: {
-    padding: 15,
+    padding:20,
+    backgroundColor:WHITE
   },
   title_card: {
     marginVertical: 20,
   },
   recorder_card: {
-    marginTop: 40,
+    marginTop: 20,
   },
   field_container: {
     marginVertical: 20,
   },
   audio_text:{
-    color:GREEN
+    color:GREEN,
+    backgroundColor:WHITE
   },
   imageUploader:{
     flexDirection:'row'
   },
   send:{
     marginRight:250,
-    backgroundColor:GREEN,
+    backgroundColor:WHITE,
+    marginBottom:20
   },
   records: {
     marginVertical: 20,

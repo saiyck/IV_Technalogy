@@ -37,7 +37,6 @@ const styles = StyleSheet.create({
     borderTopStartRadius: 10,
     borderTopEndRadius: 10,
     paddingVertical: 20,
-    backgroundColor: Colors.grey300,
   },
   login_container: {
     marginVertical: 20,

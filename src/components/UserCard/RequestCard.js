@@ -1,11 +1,11 @@
 import React from 'react';
-import {Picker,TouchableOpacity} from 'react-native';
+import {Picker,TouchableOpacity,View,Image} from 'react-native';
 import {Card, Button, Text, Paragraph} from 'react-native-paper';
 
 import styles from './usercard-styles';
 import {Context} from 'store';
 
-export function RequestCard(props) {
+ export function RequestCard(props) {
   const {state} = React.useContext(Context);
 
   const is_same = state.user.data.id === props.id;
@@ -13,10 +13,13 @@ export function RequestCard(props) {
   return (
     <TouchableOpacity onPress={() => props.onOpen(props.index)}>
     <Card style={styles.container}>
-      <Card.Title
-        title={props.name}
-        subtitle={`${props.type} / ${props.email ? props.email : 'NO EMAIL'}`}
-      />
+    <View style={styles.userCard}>
+          <Image style={styles.userImage} source={{uri:`${props.photo}`}}/>
+          <View style={styles.userText}>
+          <Text style={styles.nameText}>{props.name}</Text>
+          <Text style={styles.emailText}>{`${props.type} / ${props.email ? props.email : 'NO EMAIL'}`}</Text>
+          </View>
+        </View>
       <Card.Actions style={styles.actions}>
         {is_same ? (
           <Text style={{padding: 10}}>CAN'T CHANGE FOR SELF!</Text>

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, ScrollView,View} from 'react-native';
+import {Image, ScrollView,View,ImageBackground} from 'react-native';
 import {
   Card,
   Button,
@@ -20,7 +20,9 @@ import {
   MAX_DESC_LENGTH,
   RED,
   GREEN,
-  WHITE
+  WHITE,
+  BLUE,
+  TGREEN
 } from 'globals/constants';
 import {TouchableHighlight} from 'react-native-gesture-handler';
 import {HEIGHT} from 'constants';
@@ -111,22 +113,24 @@ export default function TextForm(props) {
       <ScrollView style={styles.audioform}>
         {loading && <Loading />}
         <Card>
+          <ImageBackground source={require('./assets/tailcolor.jpg')} style={{flex:1,justifyContent:'center'}}>
           <Card.Title
             title="TEXT COMPLAINT"
-            titleStyle={{color:GREEN}}
+            titleStyle={{color:TGREEN}}
             subtitle="complaint details here"
-            subtitleStyle={{color:GREEN}}
+            subtitleStyle={{color:TGREEN}}
           />
           <Card.Content style={styles.field_container}>
             <TextInput
-              style={{color:GREEN}}
+              style={{color:TGREEN,backgroundColor:WHITE,borderRadius:15}}
               onChangeText={(v) => updateField('title', v)}
               label="TITLE"
+              mode='outlined'
               placeholder="YOUR COMPLAINT REGARDING"
               theme={{
                 colors:{
-                  primary:GREEN,
-                  placeholder:GREEN
+                  primary:TGREEN,
+                  placeholder:TGREEN,
                 }
               }}
             />
@@ -136,16 +140,17 @@ export default function TextForm(props) {
           </Card.Content>
           <Card.Content style={styles.field_container}>
             <TextInput
-              style={{color:GREEN}}
+              style={{color:TGREEN,backgroundColor:WHITE}}
               label="DESCRIPTION"
               onChangeText={(v) => updateField('description', v)}
               multiline
-              numberOfLines={4}
+              mode='outlined'
+              numberOfLines={6}
               placeholder="SOME MORE INPUTS ON YOUR COMPLAINT"
               theme={{
                 colors:{
-                  primary:GREEN,
-                  placeholder:GREEN
+                  primary:TGREEN,
+                  placeholder:TGREEN
                 }
               }}
             />
@@ -169,7 +174,7 @@ export default function TextForm(props) {
               <Image source={require('./assets/imageUploader.png')}
               style={{width:40,height:40,marginLeft:60}}/>
               <Button
-                color={GREEN}
+                color={TGREEN}
                 onPress={handleImageSelect}
                 disabled={fields.images.length === 4}>
                 ADD IMAGES
@@ -180,12 +185,13 @@ export default function TextForm(props) {
           <Button
                 style={styles.send}
                 onPress={submitComplaint}
-                color={WHITE}
+                color={TGREEN}
                 disabled={loading}
                 icon="check">
                 SUBMIT
               </Button> 
           </Card.Actions>
+          </ImageBackground>
         </Card>
       </ScrollView>
     </>

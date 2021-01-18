@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
   phone: {
     marginLeft:60,
     marginRight:60,
-    backgroundColor:'#33b53e',
+    backgroundColor:GREEN,
     borderRadius:10
   },
   otp_card: {

@@ -1,14 +1,14 @@
 import React from 'react';
-import {ScrollView, View, RefreshControl, Text} from 'react-native';
+import {ScrollView, View, RefreshControl, Text,ImageBackground} from 'react-native';
 import {FAB, Button, Card} from 'react-native-paper';
-
+import LinearGradient from "react-native-linear-gradient";
 import {Context} from 'store';
 import ComplaintCard from 'components/ComplaintCard';
 import routes from 'navigation/routes';
 
 import styles from './complaint-style';
 import Loading from 'components/Loading';
-import { BLACK, BLUE, GREEN, YELLOW } from 'globals/constants';
+import { BLACK, BLUE, GREEN, LINEAR, YELLOW } from 'globals/constants';
 
 export default function Complaint(props) {
   const {state, handlers} = React.useContext(Context);
@@ -93,6 +93,7 @@ export default function Complaint(props) {
           />
         ))}
         <View style={{ height: 100 }} />
+        
       </ScrollView>
       {/* <FAB.Group
         open={open}

@@ -26,7 +26,10 @@ function ComplaintCard(props) {
       <Card style={styles.container}>
         <Card.Title
           title={complaint.title}
+          titleNumberOfLines={2}
+          titleStyle={{fontStyle:'normal',fontWeight:'500',fontSize:16}}
           subtitle={complaint.user_name + ' / ' + complaint.description}
+          subtitleNumberOfLines={3}
         />
         <IconButton
           style={styles.file_type}

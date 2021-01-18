@@ -13,7 +13,7 @@ import {Context} from 'store';
 import Login from 'screens/Login';
 import Profile, {Requests, Location,UpdateKyc} from 'screens/Profile';
 import UserProfile from 'screens/Profile/Requests/UserProfile';
-import {UserRequests,Users} from 'screens/Profile/Requests';
+import {UserRequests,Users,Admin} from 'screens/Profile/Requests';
 import Meeting, {
   MeetingForm,
   SingleMeeting,
@@ -26,6 +26,8 @@ import Complaint, {
   ComplaintForm,
 } from 'screens/Complaint';
 import News, {SingleNews, UserNews, NewsForm} from 'screens/News';
+import MainScreen from 'screens/MainScreen/MainScreen';
+import { About,Navarathnalu ,Posts,Notification,Gallery,Contact,ReferFriend} from 'screens/MainScreen';
 import routes from './routes';
 import {BLUE, GREEN, ORANGE, RED, socket_endpoint, WHITE, YELLOW} from 'globals/constants';
 
@@ -69,7 +71,7 @@ const NewsApp = (props) => {
       <NewsStack.Navigator
         initialRouteName={routes.news}
         screenOptions={{
-          headerTitle: 'NEWS',
+          headerTitle: 'News',
           headerStyle: {backgroundColor: GREEN},
           headerTitleStyle: {color: Colors.white},
           headerTintColor: Colors.white,
@@ -95,7 +97,7 @@ const MeetingApp = (props) => {
       <MeetingStack.Navigator
         initialRouteName={routes.meeting}
         screenOptions={{
-          headerTitle: 'MEETING',
+          headerTitle: 'Meeting',
           headerStyle: {backgroundColor: GREEN},
           headerTitleStyle: {color: Colors.white},
           headerTintColor: Colors.white,
@@ -135,7 +137,7 @@ const ComplaintApp = (props) => {
       <ComplaintStack.Navigator
         initialRouteName={routes.complaint}
         screenOptions={{
-          headerTitle: 'COMPLAINTS',
+          headerTitle: 'Complaints',
           headerStyle: {backgroundColor: GREEN},
           headerTitleStyle: {color: Colors.white},
           headerTintColor: Colors.white,
@@ -178,7 +180,7 @@ const ProfileApp = (props) => {
 
       props.navigation.reset({
         index: 0,
-        routes: [{name: routes.profile}],
+        routes: [{name: routes.mainscreen}],
       });
 
       return messaging().onTokenRefresh((token) => {
@@ -192,9 +194,8 @@ const ProfileApp = (props) => {
 
   return (
     <ProfileStack.Navigator
-      initialRouteName={state.user.token ? routes.profile : routes.login}
+      initialRouteName={state.user.token ? routes.mainscreen : routes.login}
       screenOptions={{
-        
         headerStyle: {backgroundColor: GREEN},
         headerTitleStyle: {color: Colors.white},
         headerTintColor: Colors.white,
@@ -207,9 +208,18 @@ const ProfileApp = (props) => {
       <ProfileStack.Screen name={routes.login} component={Login} />
       <ProfileStack.Screen name={routes.profile} component={Profile} />
       <ProfileStack.Screen
+      options={{headerShown:false}} name={routes.mainscreen} component={MainScreen} />
+      <ProfileStack.Screen
         name={routes.user_complaints}
         component={UserComplaint}
       />
+      <ProfileStack.Screen name={routes.about} component={About}/>
+      <ProfileStack.Screen name={routes.navarathnalu} component={Navarathnalu}/>
+      <ProfileStack.Screen name={routes.posts} component={Posts}/>
+      <ProfileStack.Screen name={routes.notifications} component={Notification}/>
+      <ProfileStack.Screen name={routes.gallary} component={Gallery}/>
+      <ProfileStack.Screen name={routes.contact} component={Contact}/>
+      <ProfileStack.Screen name={routes.referfriend} component={ReferFriend}/>
       <ProfileStack.Screen
         name={routes.updatekyc}
         component={UpdateKyc}
@@ -230,6 +240,9 @@ const ProfileApp = (props) => {
        />
        <ProfileStack.Screen
        name={routes.users} component={Users}
+       />
+       <ProfileStack.Screen
+       name={routes.admin} component={Admin}
        />
       <ProfileStack.Screen name={routes.requests} component={Requests} />
       <ProfileStack.Screen name={routes.create_news} component={NewsForm} />
